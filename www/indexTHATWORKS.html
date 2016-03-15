@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>db test</title>
+</head>
+<body>
+    hello! hi there!
+    <div id="signin" style="">
+        Sign in here. Use the same email and password on all of your family's devices. <br><br>
+        <input type="text" size="15" name="signinemail" id="signinemail" placeholder="email">
+        <input type="password" size="15" name="signinpassword" id="signinpassword" placeholder="password"> <br>
+        <button style="padding:15px;border:1px solid white;border-radius:10px; margin-top:10px" onclick="signIn()">Sign In</button><br>
+        <div id="passwordError" style="display:none" class="error">Sorry, that password doesn't match our records. Try again? <br><br>
+        <a onclick="showForgotPassword()" style="color:darkred;text-decoration:underline">Forgot your password?</a>
+        </div>
+    </div>
+    
+    <div style="position:absolute;top:5px;bottom:5px;left:5px;right:5px;background-color:white;opacity:.5;z-index:-1"></div>
+    <div style='border:0px solid gray;border-radius:12px;'>
+        <div id="spinner" style="display:none;text-align:center;background-color:white;border:1px solid white;border-radius:12px;">
+            <div style="padding:40px;"><img src="../img/Vector_Loading_fallback.gif" alt=""><br><br></div>
+            <div id="spinnermessage" style="display:none;text-align:center">
+        </div>
+
+            
+        </div>
+        <div id="resettingPasswordMessage" style="display:none">
+           <div style="text-align:center"><img src="../img/Vector_Loading_fallback.gif" alt=""><br><br>Attempting to reset your password. Please wait a moment...</div>
+
+        </div>
+        <div id="emailSignInNotFoundError" class="error">Sorry, we couldn't find that email address. Try again?
+        </div>
+        <div id="userexistserror" class="error">It looks like there's already an account with that email address. If you've forgotton your password, you can <a href="#" onclick="showForgotPassword()">reset it</a>, or you can <a href="" onclick="signIn()">sign in.</a></div>
+        <div id="sponsornotfounderror" class="error">We weren't able to find that code. Try again?</div>
+
+        <div id="signup" style="display:none">
+            Sign up for an account <br><br>
+            <div style="padding:0">
+               <table>
+                  <tr>
+                      <td>
+                          <div id="nameemptyerror" class="error">Name must not be empty</div>
+                          Your name ("Mom", "Dad", "Grandma", etc.) <br>
+                          <input size="15" type="text" name="signupname" id="signupname" placeholder="Your name">
+                      </td>
+                  </tr>
+                   <tr>
+                       <td >
+                          Enter your email address:<br>
+                          <span style="font-size:.8em;color:gray">(This email is for your family account. It will be used to set up your account on this device and any other devices you want to sync with this account</span> 
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>
+                           <div id="emailmatchingerror" class="error">Emails must match</div>
+                           <div id="emailemptyerror" class="error">Email must not be empty</div>
+                           <input size="15" type="text" name="signupemail" id="signupemail" placeholder="Your Email">
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>Email again:</td>
+                   </tr>
+                   <tr><td><input size="15" type="text" name="signupemailverify" id="signupemailverify" placeholder="Enter your email again"></td></tr>
+                   <tr><td>&nbsp;</td></tr>
+                   <tr>
+                       <td>
+                           <div id="passwordmatchingerror" class="error">Passwords must match</div>
+                            <div id="passwordemptyerror" class="error">Password must not be empty</div>
+                           Choose a password:
+                        </td>
+                   </tr>
+                   <tr><td><input size="15" type="text" name="signuppassword" id="signuppassword" placeholder="Choose a password"></td></tr>
+                   <tr>
+                       <td>Password again:</td>
+                   </tr>
+                   <tr><td><input size="15" type="text" name="signuppasswordverify" id="signuppasswordverify" placeholder="Enter your password again"></td></tr>
+                   <tr>
+                       <td>
+                          <div id="pinemptyerror" class="error">Pin must not be empty</div>
+                          <div id="pinnot4digitserror" class="error">Pin must be 4 digits</div>
+                           Choose a PIN (this is how you'll access the app from now on):
+                        </td>
+                   </tr>
+                   <tr><td><input size="15" type="number" name="pin" id="signuppin" placeholder="Choose a 4-digit PIN number"></td></tr>
+                   <tr><td><strong>Sponsor code</strong></td></tr>
+                   <tr><td>If you have a sponsor code, enter it here. Your sponsor code unlocks additional features in the app!</td></tr>
+                   <tr>
+                       <td>Sponsor code:</td>
+                   </tr>
+                   <tr><td><input size="15" type="text" name="signupsponsor" id="signupsponsor" placeholder="Sponsor Code"></td></tr>
+                   <tr><td><button style="padding:10px;font-size:1.1em;border:1px solid black;border-radius:10px" onclick="doSignUp()">Sign up</button></td></tr>
+                   <tr><td><button style="border:1px solid black; border-radius:10px;padding:10px;font-size:1.1em;" onclick="hideSignUp()">Cancel</button></td></tr>
+               </table>         
+            </div>
+        </div>
+        <div id="forgotpassword" style="display:none;">
+            To reset your password, enter the email address for your account. <br>
+            <input type="text" name="resetpasswordemail" id="resetpasswordemail" placeholder="email"><br>
+            <button onclick=resetPassword()>Reset my password</button>
+        </div>
+        <div>
+            <div id="bluesignin" class="button" onclick="showSignIn()">Sign In</div>
+            <div class="button button-signup" onclick="showSignUp()">Sign up for an account</div>
+            <div class="button button-forgot" id="passwordResetButton" style="display:none;" onclick="showForgotPassword()">Reset Password</div>
+        </div>            
+    </div>
+    <script src="js/jquery-1.12.0.min.js"></script>
+    <script src="js/pouchdb.min.js"></script>
+    <script src="js/my.js"></script>
+</body>
+</html>
